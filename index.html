@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>James Lee</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header></header>
+
+  <div class="nav-wrapper">
+    <nav class="nav-bar nav-animate">
+      <a href="home.html" data-link>HOME</a>
+      <a href="about.html" data-link>ABOUT</a>
+      <a href="scores.html" data-link>SCORES</a>
+      <a href="contact.html" data-link>CONTACT</a>
+    </nav>
+    <hr class="divider div-animate" />
+  </div>
+
+  <main id="content"></main>
+
+  <footer>
+    <span>leejame105@gmail.com</span>
+    <a href="https://youtube.com/@cloudtrainodyssey?si=iqb1--WOzuudZ52f" target="_blank">
+      <img src="/photo/youtube_logo.png" alt="LinkedIn" class="linkedin-icon" />
+    </a>
+    <span class="copy-btn" onclick="copyToClipboard('https://www.linkedin.com/in/yourprofile')">
+      Copy LinkedIn URL
+    </span>
+  </footer>
+<script>
+  async function loadContent(url) {
+    const content = document.getElementById('content');
+    content.classList.add('fade-out');
+    await new Promise(resolve => setTimeout(resolve, 400));
+
+    try {
+      const response = await fetch(url);
+      const html = await response.text();
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+
+      const newContent = temp.querySelector('#page-content');
+      if (newContent) {
+        content.innerHTML = newContent.innerHTML;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        content.classList.remove('fade-out');
+        content.style.animation = 'none';
+        void content.offsetWidth;
+        content.style.animation = null;
+
+        document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
+
+        if (url.includes("scores.html")) {
+          const wavesurferScript = document.createElement("script");
+          wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
+          wavesurferScript.setAttribute("data-dynamic", "true");
+          wavesurferScript.onload = () => {
+            const customScript = document.createElement("script");
+            customScript.src = "scores.js";
+            customScript.setAttribute("data-dynamic", "true");
+            document.body.appendChild(customScript);
+          };
+          document.body.appendChild(wavesurferScript);
+        }
+      } else {
+        content.innerHTML = "<p>Page format is incorrect.</p>";
+      }
+    } catch (err) {
+      content.innerHTML = "<p>Failed to load page.</p>";
+      console.error(err);
+    }
+  }
+  let firstLoad = true;
+
+  window.addEventListener("DOMContentLoaded", () => {
+    loadContent("home.html", true); // pass true to enable animations
+  });
+
+  document.querySelectorAll('a[data-link]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const url = link.getAttribute('href');
+      loadContent(url);
+    });
+  });
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("LinkedIn address has copied.");
+    });
+  }
+</script>
+</body>
+</html>
