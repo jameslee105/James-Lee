@@ -18,19 +18,19 @@
     trackList.innerHTML = "";
 
     const tracks = [
-      { title: "Above the Sky", src: "/music/Above the Sky.wav", duration: "5:08" },
-      { title: "Travel to Wonderland", src: "/music/Travel to wonderland.wav", duration: "5:08" },
-      { title: "King's Land", src: "/music/King's Land.wav", duration: "5:08" },
-      { title: "Life of Tree", src: "/music/Life of Tree.wav", duration: "3:22" },
-      { title: "Mori", src: "/music/mori.wav", duration: "3:06" },
-      { title: "Skyland", src: "/music/Skyland.wav", duration: "3:24" },
-      { title: "Coming Back to the Glory", src: "/music/Coming back to the glory.wav", duration: "4:10" },
-      { title: "Falling into Water", src: "/music/Falling into Water.wav", duration: "5:02" },
-      { title: "Impossible Mission", src: "/music/Impossible Mission.wav", duration: "2:26" },
-      { title: "Opening 1", src: "/music/Opening 1.wav", duration: "1:32" },
-      { title: "The Final", src: "/music/The final.wav", duration: "3:20" },
-      { title: "The Survivor", src: "/music/The Survivor.wav", duration: "2:56" },
-      { title: "To the New Island", src: "/music/To the new island.wav", duration: "2:24" }
+      { title: "Above the Sky", src: "/music/Above the Sky.mp3", duration: "5:08" },
+      { title: "Travel to Wonderland", src: "/music/Travel to wonderland.mp3", duration: "5:08" },
+      { title: "King's Land", src: "/music/King's Land.mp3", duration: "5:08" },
+      { title: "Life of Tree", src: "/music/Life of Tree.mp3", duration: "3:22" },
+      { title: "Mori", src: "/music/mori.mp3", duration: "3:06" },
+      { title: "Skyland", src: "/music/Skyland.mp3", duration: "3:24" },
+      { title: "Coming Back to the Glory", src: "/music/Coming back to the glory.mp3", duration: "4:10" },
+      { title: "Falling into Water", src: "/music/Falling into Water.mp3", duration: "5:02" },
+      { title: "Impossible Mission", src: "/music/Impossible Mission.mp3", duration: "2:26" },
+      { title: "Opening 1", src: "/music/Opening 1.mp3", duration: "1:32" },
+      { title: "The Final", src: "/music/The final.mp3", duration: "3:20" },
+      { title: "The Survivor", src: "/music/The Survivor.mp3", duration: "2:56" },
+      { title: "To the New Island", src: "/music/To the new island.mp3", duration: "2:24" }
     ];
 
     const wavesurfer = WaveSurfer.create({
@@ -38,6 +38,7 @@
       waveColor: '#c0c0c0',
       progressColor: '#111',
       cursorColor: '#5ba8ff',
+      url: '/audio.mp3',
       barWidth: 2,
       barRadius: 3,
       height: 100,
