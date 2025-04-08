@@ -19,7 +19,7 @@
 
     const tracks = [
       { title: "Above the Sky", src: "music/Above the Sky.mp3", duration: "5:08" },
-      { title: "Travel to Wonderland", src: "music/Travel to wonderland.mp3", duration: "5:08" },
+      { title: "Travel to Wonderland", src: "music/Travel to Wonderland.mp3", duration: "5:08" },
       { title: "King's Land", src: "music/King's Land.mp3", duration: "5:08" },
       { title: "Life of Tree", src: "music/Life of Tree.mp3", duration: "3:22" },
       { title: "Mori", src: "music/mori.mp3", duration: "3:06" },
