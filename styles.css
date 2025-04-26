@@ -69,6 +69,7 @@ body {
   
     .nav-bar.active {
       display: flex;
+      background: white;
     }
   
     nav a {
@@ -582,8 +583,8 @@ body {
   
   .form-actions {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
+    justify-content: right;
+    padding-left: 35.8rem;
   }
   
   .form-actions button {
@@ -591,11 +592,11 @@ body {
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 0.75rem 1.5rem;
+    padding: 1rem 2rem;
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
-    margin-right: 0; 
+    padding-right: 1.5rem;
     transition: background 0.3s ease;
   }
   @media (max-width: 768px) {
@@ -604,9 +605,14 @@ body {
       padding-right: 2.5rem;
       max-width: 90%;
     }
-  
+    .form-actions {
+      display: flex;
+      justify-content: right;
+      padding-left: 20rem;
+      
+    }
     .form-actions button {
-      padding: 0.6rem 1rem;
+      padding: 0.9rem 1.3rem;
       font-size: 0.9rem;
     }
   }
