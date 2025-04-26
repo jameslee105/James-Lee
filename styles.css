@@ -278,9 +278,16 @@ body {
   @media (max-width: 768px) {
     footer {
       font-size: 12px;
+      padding: 12px;
     }
-    .footer-content {
-      gap: 6px;
+    footer .footer-content {
+      flex-direction: row;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .footer-content span {
+      font-size: 14px;
     }
     .linkedin-icon {
       width: 18px;
