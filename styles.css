@@ -452,8 +452,8 @@ body {
   }
   
   .about-side-image {
-    width: 220px;
-    height: 300px;
+    width: 200px;
+    height: 260px;
     max-height: 400px;
     object-fit: cover;
     border-radius: 16px;
