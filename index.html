@@ -15,7 +15,8 @@
   <header></header>
 
   <div class="nav-wrapper">
-    <nav class="nav-bar nav-animate">     
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation">&#9776;</button> <!-- ☰ icon -->
+    <nav class="nav-bar nav-animate">
       <a href="home.html" data-link>HOME</a>
       <a href="about.html" data-link>ABOUT</a>
       <a href="scores.html" data-link>SCORES</a>
@@ -23,6 +24,7 @@
     </nav>
     <hr class="divider div-animate" />
   </div>
+  
 
   <main id="content"></main>
 
@@ -39,6 +41,13 @@
   </footer>
   
 <script>
+  const mobileToggle = document.querySelector('.mobile-nav-toggle');
+const navBar = document.querySelector('.nav-bar');
+
+mobileToggle.addEventListener('click', () => {
+  navBar.classList.toggle('active');
+});
+
   async function loadContent(url) {
     const content = document.getElementById('content');
     content.classList.add('fade-out');

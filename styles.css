@@ -6,34 +6,49 @@ body {
   }
   @media (max-width: 768px) {
     .nav-wrapper {
-      display: flex;
+      flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
+      position: relative;
     }
+    
+    .mobile-nav-toggle {
+      display: block;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      color: #333;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
     .nav-bar {
       display: none;
       flex-direction: column;
+      align-items: center;
       gap: 1rem;
-      background-color: #fff;
-      padding: 1rem;
+      background: white;
       position: absolute;
       top: 60px;
       left: 0;
       right: 0;
+      padding: 1rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      z-index: 999;
+      z-index: 1000;
+      
+      /* 💥 Turn off animation for mobile */
+      animation: none !important;
+      transition: none !important;
     }
+  
     .nav-bar.active {
-
       display: flex;
     }
-    .mobile-nav-toggle {
-      display: block;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
+  
+    nav a {
+      padding: 10px 20px;
+      font-size: 16px;
     }
   }
   
@@ -386,25 +401,31 @@ body {
     }
   }
   .about-wrapper {
-    position: relative;
-    max-width: 1300px;
-    margin: 0 auto 0 auto;
-    padding: 0 60px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .about-images {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
   }
   
   .about-side-image {
-    width: 200px;
+    width: 220px;
     height: auto;
-    max-height: 430px;
+    max-height: 400px;
     object-fit: cover;
     border-radius: 16px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-    align-self: flex-start;
-    margin-top: 10px;
   }
+  
+
   
   .about-text {
     max-width: 650px;
