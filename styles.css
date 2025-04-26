@@ -275,6 +275,19 @@ body {
     text-align: center;
     margin-bottom: 80px;
   }
+  @media (max-width: 768px) {
+    footer {
+      font-size: 12px;
+    }
+    .footer-content {
+      gap: 6px;
+    }
+    .linkedin-icon {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
   footer {
     font-family: 'Karla', sans-serif;
     display: flex;
