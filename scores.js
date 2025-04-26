@@ -9,12 +9,19 @@
       initializePlayer(waveform, trackList, playBtn);
     }
   }, 50);
+  let autoplaySongId = null;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const songId = urlParams.get('song');
+  if (songId) {
+    autoplaySongId = parseInt(songId, 10) - 1;
+  }
+  
   function initializePlayer(waveform, trackList, playBtn) {
     if (window.wavesurfer) {
       window.wavesurfer.destroy();
     }
-
+    
     trackList.innerHTML = "";
 
     const tracks = [
@@ -86,7 +93,9 @@
       li.addEventListener("click", () => loadTrack(index));
       trackList.appendChild(li);
     });
-
+    if (autoplaySongId !== null && tracks[autoplaySongId]) {
+  loadTrack(autoplaySongId);
+}
     playBtn.onclick = () => {
       if (wavesurfer.isPlaying()) {
         wavesurfer.pause();
@@ -96,5 +105,15 @@
         playBtn.classList.add("pause");
       }
     };
+
+    const urlParams = new URLSearchParams(window.__SONG_ID__ || window.location.search);
+    const songId = urlParams.get('song');
+
+    if (songId) {
+      const index = parseInt(songId, 10) - 1;
+      if (tracks[index]) {
+        loadTrack(index);
+      }
+    }
   }
 })();

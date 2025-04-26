@@ -4,14 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>James Lee</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=1.2" />
 </head>
 
 <body>
+  <div id="loading-spinner" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Work Sans', sans-serif; font-size: 18px; color: #444;">
+    Loading...
+  </div>
   <header></header>
 
   <div class="nav-wrapper">
-    <nav class="nav-bar nav-animate">
+    <nav class="nav-bar nav-animate">     
       <a href="home.html" data-link>HOME</a>
       <a href="about.html" data-link>ABOUT</a>
       <a href="scores.html" data-link>SCORES</a>
@@ -24,13 +28,16 @@
 
   <footer>
     <span>leejame105@gmail.com</span>
+    <span style="margin: 0 10px; color: #888;">|</span>
     <a href="https://youtube.com/@cloudtrainodyssey?si=iqb1--WOzuudZ52f" target="_blank">
-      <img src="photo/youtube_logo.png" alt="LinkedIn" class="linkedin-icon" />
+      <img src="photo/youtube_logo.png" alt="YouTube" class="linkedin-icon" />
     </a>
-    <span class="copy-btn" onclick="copyToClipboard('https://www.linkedin.com/in/yourprofile')">
-      Copy LinkedIn URL
-    </span>
+    <span style="margin: 0 10px; color: #888;">|</span>
+    <a href="https://www.instagram.com/cloudtrain_odyssey?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+      <img src="photo/Instagram_icon.png" alt="Instagram" class="linkedin-icon" />
+    </a>
   </footer>
+  
 <script>
   async function loadContent(url) {
     const content = document.getElementById('content');
@@ -46,7 +53,9 @@
       const newContent = temp.querySelector('#page-content');
       if (newContent) {
         content.innerHTML = newContent.innerHTML;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
+        window.scrollTo({ top: 0, behavior: scrollBehavior });
+
 
         content.classList.remove('fade-out');
         content.style.animation = 'none';
@@ -63,10 +72,12 @@
             const customScript = document.createElement("script");
             customScript.src = "scores.js";
             customScript.setAttribute("data-dynamic", "true");
+            const query = new URL(url, window.location.href).search;
+            window.__SONG_ID__ = query;
             document.body.appendChild(customScript);
           };
           document.body.appendChild(wavesurferScript);
-        }
+}
       } else {
         content.innerHTML = "<p>Page format is incorrect.</p>";
       }
@@ -78,16 +89,25 @@
   let firstLoad = true;
 
   window.addEventListener("DOMContentLoaded", () => {
-    loadContent("home.html", true); // pass true to enable animations
+    loadContent("home.html", true);
   });
 
-  document.querySelectorAll('a[data-link]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const url = link.getAttribute('href');
-      loadContent(url);
-    });
-  });
+  document.addEventListener('click', e => {
+  const link = e.target.closest('a[data-link]');
+  if (!link) return;
+
+  e.preventDefault();
+
+  const fullUrl = new URL(link.href, window.location.href);
+  const pathWithQuery = fullUrl.pathname + fullUrl.search;
+
+  history.pushState(null, '', pathWithQuery);
+  loadContent(pathWithQuery); 
+});
+window.addEventListener('popstate', () => {
+  loadContent(location.pathname + location.search);
+});
+
 
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
