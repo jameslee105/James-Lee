@@ -7,6 +7,7 @@
     if (waveform && trackList && playBtn) {
       clearInterval(checkReady);
       initializePlayer(waveform, trackList, playBtn);
+      resetScrollAnimations(); // ✨ Reset scroll animations after setup
     }
   }, 50);
 
@@ -53,7 +54,7 @@
     function loadTrack(index, shouldAutoplay = true) {
       if (window.wavesurfer) {
         window.wavesurfer.destroy();
-      }  
+      }
       const wavesurfer = WaveSurfer.create({
         container: '#waveform',
         waveColor: '#c0c0c0',
@@ -108,4 +109,15 @@
       }
     };
   }
+
+  function resetScrollAnimations() {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.scroll-animate').forEach(el => {
+        el.style.animation = 'none';
+        void el.offsetWidth;
+        el.style.animation = '';
+      });
+    });
+  }
+
 })();

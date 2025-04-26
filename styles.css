@@ -6,19 +6,19 @@ body {
   }
   .mobile-nav-toggle {
     display: none;
-    position: absolute;
-    top: 1.2rem;
-    right: 1.5rem;
-    background: none;
+    position: fixed;
+    right: 1rem;
+    padding: 0rem 0rem;
     border: none;
-    font-size: 2rem;
+    background: none;
+    font-size: 2.5rem;
     color: #333;
     cursor: pointer;
     z-index: 1001;
   }
   @media (max-width: 768px) {
     #about-page .section-title {
-      margin-top: 10rem;
+      margin-bottom: 3rem;
     }
   }
   
@@ -30,16 +30,21 @@ body {
       }
       .mobile-nav-toggle {
         display: block;
-        right: 1.5rem; /* or increase this if you want it even further right */
+        
       }
     }
-    
+    @media (max-width: 768px) {
+      .profile-animate {
+        animation: profileScaleIn 1..5s ease-out forwards !important;
+        animation-delay: 0.5s !important;
+        animation-fill-mode: both;
+      }
+    }
     .nav-wrapper {
       flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+      align-items: right;
       padding: 1rem;
-      position: relative;
+      
     }
     .divider {
       display: none !important;
@@ -50,13 +55,12 @@ body {
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
       background: white;
-      position: absolute;
-      top: 60px;
+      position: fixed;
+      top:0px;
       left: 0;
+      padding-top: 80px;
       right: 0;
-      padding: 1rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       z-index: 1000;
       animation: none !important;
@@ -68,7 +72,7 @@ body {
     }
   
     nav a {
-      padding: 10px 20px;
+      padding: 30px;
       font-size: 16px;
     }
    
@@ -142,7 +146,7 @@ body {
     animation-timeline: view();
     animation-range: entry 0% cover 45%;
   }
-  
+ 
   .nav-animate {
     animation: appeared 1.8s ease-out forwards;
     animation-delay: 2s;
@@ -448,7 +452,7 @@ body {
     justify-content: center;
     gap: 2rem;
     margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   
   .about-side-image {
@@ -459,10 +463,17 @@ body {
     border-radius: 16px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     margin-top: 20px;
-  }
-  
 
-  
+  }
+  @media (max-width: 768px) {
+    .about-images {
+      gap: 1rem;
+    }
+    .about-side-image {
+      width: 140px;
+      height: 180px;
+    }
+  }  
   .about-text {
     max-width: 650px;
     font-size: 17px;
@@ -532,7 +543,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem 1rem;
     font-family: 'Noto Sans', sans-serif;
   }
   
@@ -540,12 +550,14 @@ body {
     background-color: #f8f8f8;
     border-radius: 12px;
     padding: 2rem;
-    width: 90%;
-    max-width: 600px;
+    padding-right: 3.4rem;
+    width: 100%;
+    max-width: 630px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-sizing: border-box;
   }
   
   .contact-form label {
@@ -571,6 +583,7 @@ body {
   .form-actions {
     display: flex;
     justify-content: flex-end;
+    margin-top: 1rem;
   }
   
   .form-actions button {
@@ -582,7 +595,20 @@ body {
     font-size: 1rem;
     cursor: pointer;
     font-weight: bold;
+    margin-right: 0; 
     transition: background 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    .contact-form {
+      padding: 1rem;
+      padding-right: 2.5rem;
+      max-width: 90%;
+    }
+  
+    .form-actions button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
   }
   
   .form-actions button:hover {
@@ -604,7 +630,16 @@ body {
     margin-bottom: 30px;
     text-align: center;
   }
-  
+  @media (max-width: 768px) {
+    .section-title {
+      letter-spacing: 5px;
+      font-size: 18px;
+      color: #333;
+      margin-top: 4rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  }
 
   .play-button {
     width: 48px;

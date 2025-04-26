@@ -1,153 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>James Lee</title>
-  <link rel="stylesheet" href="styles.css?v=1.2" />
-</head>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>James Lee</title>
+    <link rel="stylesheet" href="styles.css?v=1.2" />
+  </head>
 
-<body>
-  <div id="loading-spinner" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    font-family: 'Work Sans', sans-serif; font-size: 18px; color: #444;">
-    Loading...
-  </div>
-  <header></header>
-
-  <div class="nav-wrapper">
-    <button class="mobile-nav-toggle" aria-label="Toggle navigation">&#9776;</button> <!-- ☰ icon -->
-    <nav class="nav-bar nav-animate">
-      <a href="#home" data-link>HOME</a>
-      <a href="#about" data-link>ABOUT</a>
-      <a href="#scores" data-link>SCORES</a>
-      <a href="#contact" data-link>CONTACT</a>
-    </nav>    
-    <hr class="divider div-animate" />
-  </div>
-  
-
-  <main id="content"></main>
-  <footer>
-    <div class="footer-content">
-      <span>leejame105@gmail.com</span>
-      <span class="footer-separator">|</span>
-      <a href="https://youtube.com/@cloudtrainodyssey?..." target="_blank">
-        <img src="photo/youtube_logo.png" alt="YouTube" class="linkedin-icon" />
-      </a>
-      <span class="footer-separator">|</span>
-      <a href="https://www.instagram.com/cloudtrain_odyssey?..." target="_blank">
-        <img src="photo/Instagram_icon.png" alt="Instagram" class="linkedin-icon" />
-      </a>
+  <body>
+    <div id="loading-spinner" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: 'Work Sans', sans-serif; font-size: 18px; color: #444;">
+      Loading...
     </div>
-  </footer>
-  <script>
+    <header></header>
+
+    <div class="nav-wrapper">
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation">&#9776;</button> <!-- ☰ icon -->
+      <nav class="nav-bar nav-animate">
+        <a href="#home" data-link>HOME</a>
+        <a href="#about" data-link>ABOUT</a>
+        <a href="#scores" data-link>SCORES</a>
+        <a href="#contact" data-link>CONTACT</a>
+      </nav>    
+      <hr class="divider div-animate" />
+    </div>
+    
+
+    <main id="content"></main>
+    <footer>
+      <div class="footer-content">
+        <span>leejame105@gmail.com</span>
+        <span class="footer-separator">|</span>
+        <a href="https://youtube.com/@cloudtrainodyssey?..." target="_blank">
+          <img src="photo/youtube_logo.png" alt="YouTube" class="linkedin-icon" />
+        </a>
+        <span class="footer-separator">|</span>
+        <a href="https://www.instagram.com/cloudtrain_odyssey?..." target="_blank">
+          <img src="photo/Instagram_icon.png" alt="Instagram" class="linkedin-icon" />
+        </a>
+      </div>
+    </footer>
+    <script>
     const mobileToggle = document.querySelector('.mobile-nav-toggle');
-    const navBar = document.querySelector('.nav-bar');
-    
-    mobileToggle.addEventListener('click', () => {
-      navBar.classList.toggle('active');
-    });
-    
-    async function loadContent(page) {
-  const content = document.getElementById('content');
-  content.classList.add('fade-out');
-  await new Promise(resolve => setTimeout(resolve, 400));
+  const navBar = document.querySelector('.nav-bar');
 
-  try {
-    const response = await fetch(page);
-    const html = await response.text();
-    const temp = document.createElement('div');
-    temp.innerHTML = html;
+  mobileToggle.addEventListener('click', () => {
+    navBar.classList.toggle('active');
+  });
 
-    const pageName = page.replace('.html', '').replace('/', '');  // <-- this line added
-    const newContent = temp.querySelector(`#${pageName}-page`);    // <-- this line changed
+  async function loadContent(page) {
+    const content = document.getElementById('content');
+    content.classList.add('fade-out');
+    await new Promise(resolve => setTimeout(resolve, 400));
 
-    if (newContent) {
-      content.innerHTML = newContent.innerHTML;
-      const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
-      window.scrollTo({ top: 0, behavior: scrollBehavior });
+    try {
+      const response = await fetch(page);
+      const html = await response.text();
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
 
-      content.classList.remove('fade-out');
-      content.style.animation = 'none';
-      void content.offsetWidth;
-      content.style.animation = null;
+      const pageName = page.replace('.html', '').replace('/', '');
+      const newContent = temp.querySelector(`#${pageName}-page`);
 
-      document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
+      if (newContent) {
+        content.innerHTML = newContent.innerHTML;
 
-      if (page.includes("scores.html")) {
-        const wavesurferScript = document.createElement("script");
-        wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
-        wavesurferScript.setAttribute("data-dynamic", "true");
-        wavesurferScript.onload = () => {
-          const customScript = document.createElement("script");
-          customScript.src = "scores.js";
-          customScript.setAttribute("data-dynamic", "true");
-          const query = window.__SONG_ID__ || new URL(window.location.href).search;
-window.__SONG_ID__ = query;
+        if (page.includes("scores.html")) {
+          const wavesurferScript = document.createElement("script");
+          wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
+          wavesurferScript.setAttribute("data-dynamic", "true");
+          wavesurferScript.onload = () => {
+            const customScript = document.createElement("script");
+            customScript.src = "scores.js";
+            customScript.setAttribute("data-dynamic", "true");
+            const query = window.__SONG_ID__ || new URL(window.location.href).search;
+            window.__SONG_ID__ = query;
 
-          document.body.appendChild(customScript);
-        };
-        document.body.appendChild(wavesurferScript);
+            customScript.onload = () => {
+              requestAnimationFrame(() => {
+                document.querySelectorAll('.scroll-animate').forEach(el => {
+                  el.classList.remove('scroll-animate');
+                  void el.offsetWidth;
+                  el.classList.add('scroll-animate');
+                });
+              });
+            };
+
+            document.body.appendChild(customScript);
+          };
+          document.body.appendChild(wavesurferScript);
+        } else {
+          requestAnimationFrame(() => {
+            document.querySelectorAll('.scroll-animate').forEach(el => {
+              el.classList.remove('scroll-animate');
+              void el.offsetWidth;
+              el.classList.add('scroll-animate');
+            });
+          });
+        }
+
+        if (page.includes("about.html")) {
+          const aboutTitle = document.querySelector('#content .section-title');
+          if (aboutTitle) {
+            aboutTitle.style.marginTop = window.innerWidth <= 768 ? '5rem' : '0rem';
+          }
+        }
+
+        const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
+        window.scrollTo({ top: 0, behavior: scrollBehavior });
+
+        content.classList.remove('fade-out');
+        content.style.animation = 'none';
+        void content.offsetWidth;
+        content.style.animation = null;
+
+        document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
+
+      } else {
+        content.innerHTML = "<p>Page format is incorrect.</p>";
       }
+    } catch (err) {
+      console.error(err);
+      content.innerHTML = "<p>Failed to load page.</p>";
+    }
+  }
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("LinkedIn address has copied.");
+    });
+  }
+
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[data-link]');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+
+    if (href.startsWith('scores.html')) {
+      e.preventDefault();
+      window.location.hash = 'scores';
+      window.__SONG_ID__ = '?' + href.split('?')[1];
+      loadContent('scores.html');
     } else {
-      content.innerHTML = "<p>Page format is incorrect.</p>";
+      e.preventDefault();
+      window.location.hash = href.replace('.html', '');
     }
-  } catch (err) {
-    content.innerHTML = "<p>Failed to load page.</p>";
-    console.error(err);
-  }
-}
 
-    function getPageFromHash() {
-      const hash = window.location.hash.replace('#', '');
-      if (!hash) return 'home.html';
-      return `${hash}.html`;
+    if (window.innerWidth < 769 && navBar.classList.contains('active')) {
+      navBar.classList.remove('active');
     }
-    
-    window.addEventListener('DOMContentLoaded', () => {
-      loadContent(getPageFromHash());
-    });
-    
-    window.addEventListener('hashchange', () => {
-      loadContent(getPageFromHash());
-    });
-    
-    document.addEventListener('click', e => {
-      const link = e.target.closest('a[data-link]');
-      if (!link) return;
-    
-      if (window.innerWidth < 769 && navBar.classList.contains('active')) {
-        navBar.classList.remove('active');
-      }
-    });
- 
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert("LinkedIn address has copied.");
-      });
-    }
-    document.addEventListener('click', e => {
-  const link = e.target.closest('a[data-link]');
-  if (!link) return;
+  });
 
-  const href = link.getAttribute('href');
-
-  if (href.startsWith('scores.html')) {
-    e.preventDefault(); // Prevent default jump
-    window.location.hash = 'scores'; // Update the hash
-    window.__SONG_ID__ = '?' + href.split('?')[1]; // Pass the ?song=1 part
-    loadContent('scores.html'); // Load the scores page manually
-  } else {
-    e.preventDefault();
-    window.location.hash = href.replace('.html', '');
+  function getPageFromHash() {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return 'home.html';
+    return `${hash}.html`;
   }
 
-  if (window.innerWidth < 769 && navBar.classList.contains('active')) {
-    navBar.classList.remove('active');
-  }
-});
+  window.addEventListener('DOMContentLoaded', () => {
+    loadContent(getPageFromHash());
+  });
 
-    </script>
+  window.addEventListener('hashchange', () => {
+    loadContent(getPageFromHash());
+  });
     
-</body>
-</html>
+      </script>
+      
+  </body>
+  </html>
