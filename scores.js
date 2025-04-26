@@ -9,14 +9,14 @@
       initializePlayer(waveform, trackList, playBtn);
     }
   }, 50);
-  let autoplaySongId = null;
 
-  const urlParams = new URLSearchParams(window.location.search);
+  let autoplaySongId = null;
+  const urlParams = new URLSearchParams(window.__SONG_ID__ || window.location.search);
   const songId = urlParams.get('song');
   if (songId) {
     autoplaySongId = parseInt(songId, 10) - 1;
   }
-  
+
   function initializePlayer(waveform, trackList, playBtn) {
     if (window.wavesurfer) {
       window.wavesurfer.destroy();
@@ -40,20 +40,6 @@
       { title: "To the New Island", src: "music/To the new island.mp3", duration: "2:24" }
     ];
 
-    const wavesurfer = WaveSurfer.create({
-      container: '#waveform',
-      waveColor: '#c0c0c0',
-      progressColor: '#111',
-      cursorColor: '#5ba8ff',
-      url: '/audio.mp3',
-      barWidth: 2,
-      barRadius: 3,
-      height: 100,
-      responsive: true
-    });
-
-    window.wavesurfer = wavesurfer;
-
     const trackTitle = document.getElementById("track-title");
     const currentTime = document.getElementById("currentTime");
     const totalTime = document.getElementById("totalTime");
@@ -64,18 +50,32 @@
       return `${m}:${s}`;
     }
 
-    function loadTrack(index) {
-      const track = tracks[index];
-      wavesurfer.empty();
-      wavesurfer.unAll();
-      wavesurfer.load(track.src);
-      trackTitle.innerText = track.title;
+    function loadTrack(index, shouldAutoplay = true) {
+      if (window.wavesurfer) {
+        window.wavesurfer.destroy();
+      }  
+      const wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: '#c0c0c0',
+        progressColor: '#111',
+        cursorColor: '#5ba8ff',
+        url: tracks[index].src,
+        barWidth: 2,
+        barRadius: 3,
+        height: 100,
+        responsive: true
+      });
+
+      window.wavesurfer = wavesurfer;
+      trackTitle.innerText = tracks[index].title;
       playBtn.classList.remove("pause");
 
       wavesurfer.on('ready', () => {
         totalTime.innerText = formatTime(wavesurfer.getDuration());
-        wavesurfer.play();
-        playBtn.classList.add("pause");
+        if (shouldAutoplay) {
+          wavesurfer.play();
+          playBtn.classList.add("pause");
+        }
       });
 
       wavesurfer.on('audioprocess', () => {
@@ -93,27 +93,19 @@
       li.addEventListener("click", () => loadTrack(index));
       trackList.appendChild(li);
     });
+
     if (autoplaySongId !== null && tracks[autoplaySongId]) {
-  loadTrack(autoplaySongId);
-}
+      loadTrack(autoplaySongId);
+    }
+
     playBtn.onclick = () => {
-      if (wavesurfer.isPlaying()) {
-        wavesurfer.pause();
+      if (window.wavesurfer.isPlaying()) {
+        window.wavesurfer.pause();
         playBtn.classList.remove("pause");
       } else {
-        wavesurfer.play();
+        window.wavesurfer.play();
         playBtn.classList.add("pause");
       }
     };
-
-    const urlParams = new URLSearchParams(window.__SONG_ID__ || window.location.search);
-    const songId = urlParams.get('song');
-
-    if (songId) {
-      const index = parseInt(songId, 10) - 1;
-      if (tracks[index]) {
-        loadTrack(index);
-      }
-    }
   }
 })();

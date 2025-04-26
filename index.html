@@ -49,52 +49,55 @@
     });
     
     async function loadContent(page) {
-      const content = document.getElementById('content');
-      content.classList.add('fade-out');
-      await new Promise(resolve => setTimeout(resolve, 400));
-    
-      try {
-        const response = await fetch(page);
-        const html = await response.text();
-        const temp = document.createElement('div');
-        temp.innerHTML = html;
-    
-        const newContent = temp.querySelector('#page-content');
-        if (newContent) {
-          content.innerHTML = newContent.innerHTML;
-          const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
-          window.scrollTo({ top: 0, behavior: scrollBehavior });
-    
-          content.classList.remove('fade-out');
-          content.style.animation = 'none';
-          void content.offsetWidth;
-          content.style.animation = null;
-    
-          document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
-    
-          if (page.includes("scores.html")) {
-            const wavesurferScript = document.createElement("script");
-            wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
-            wavesurferScript.setAttribute("data-dynamic", "true");
-            wavesurferScript.onload = () => {
-              const customScript = document.createElement("script");
-              customScript.src = "scores.js";
-              customScript.setAttribute("data-dynamic", "true");
-              const query = new URL(window.location.href).search;
-              window.__SONG_ID__ = query;
-              document.body.appendChild(customScript);
-            };
-            document.body.appendChild(wavesurferScript);
-          }
-        } else {
-          content.innerHTML = "<p>Page format is incorrect.</p>";
-        }
-      } catch (err) {
-        content.innerHTML = "<p>Failed to load page.</p>";
-        console.error(err);
+  const content = document.getElementById('content');
+  content.classList.add('fade-out');
+  await new Promise(resolve => setTimeout(resolve, 400));
+
+  try {
+    const response = await fetch(page);
+    const html = await response.text();
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+
+    const pageName = page.replace('.html', '').replace('/', '');  // <-- this line added
+    const newContent = temp.querySelector(`#${pageName}-page`);    // <-- this line changed
+
+    if (newContent) {
+      content.innerHTML = newContent.innerHTML;
+      const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
+      window.scrollTo({ top: 0, behavior: scrollBehavior });
+
+      content.classList.remove('fade-out');
+      content.style.animation = 'none';
+      void content.offsetWidth;
+      content.style.animation = null;
+
+      document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
+
+      if (page.includes("scores.html")) {
+        const wavesurferScript = document.createElement("script");
+        wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
+        wavesurferScript.setAttribute("data-dynamic", "true");
+        wavesurferScript.onload = () => {
+          const customScript = document.createElement("script");
+          customScript.src = "scores.js";
+          customScript.setAttribute("data-dynamic", "true");
+          const query = window.__SONG_ID__ || new URL(window.location.href).search;
+window.__SONG_ID__ = query;
+
+          document.body.appendChild(customScript);
+        };
+        document.body.appendChild(wavesurferScript);
       }
+    } else {
+      content.innerHTML = "<p>Page format is incorrect.</p>";
     }
-    
+  } catch (err) {
+    content.innerHTML = "<p>Failed to load page.</p>";
+    console.error(err);
+  }
+}
+
     function getPageFromHash() {
       const hash = window.location.hash.replace('#', '');
       if (!hash) return 'home.html';
@@ -123,6 +126,27 @@
         alert("LinkedIn address has copied.");
       });
     }
+    document.addEventListener('click', e => {
+  const link = e.target.closest('a[data-link]');
+  if (!link) return;
+
+  const href = link.getAttribute('href');
+
+  if (href.startsWith('scores.html')) {
+    e.preventDefault(); // Prevent default jump
+    window.location.hash = 'scores'; // Update the hash
+    window.__SONG_ID__ = '?' + href.split('?')[1]; // Pass the ?song=1 part
+    loadContent('scores.html'); // Load the scores page manually
+  } else {
+    e.preventDefault();
+    window.location.hash = href.replace('.html', '');
+  }
+
+  if (window.innerWidth < 769 && navBar.classList.contains('active')) {
+    navBar.classList.remove('active');
+  }
+});
+
     </script>
     
 </body>

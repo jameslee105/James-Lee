@@ -4,11 +4,33 @@ body {
     font-family: 'Work Sans', sans-serif;
     background-color: #F4F3F2;
   }
+  .mobile-nav-toggle {
+    display: none;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  @media (max-width: 768px) {
+    #about-page .section-title {
+      margin-top: 10rem;
+    }
+  }
+  
   @media (max-width: 768px) {
     @media (max-width: 768px) {
       .title,
       .section-title {
         margin-top: 80px;
+      }
+      .mobile-nav-toggle {
+        display: block;
+        right: 1.5rem; /* or increase this if you want it even further right */
       }
     }
     
@@ -23,15 +45,6 @@ body {
       display: none !important;
     }
     
-    .mobile-nav-toggle {
-      display: block;
-      font-size: 2rem;
-      background: none;
-      border: none;
-      color: #333;
-      cursor: pointer;
-      z-index: 1001;
-    }
   
     .nav-bar {
       display: none;
@@ -62,12 +75,7 @@ body {
     
   }
   
-  .mobile-nav-toggle {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.5rem;
-    z-index: 1000;
-  }
+  
   @keyframes fadeOutPage {
     from { opacity: 1; }
     to { opacity: 0; }
@@ -137,7 +145,7 @@ body {
   
   .nav-animate {
     animation: appeared 1.8s ease-out forwards;
-    animation-delay: 2.5s;
+    animation-delay: 2s;
     animation-fill-mode: both;
   }
   
@@ -275,27 +283,28 @@ body {
     flex-wrap: wrap;
     padding: 20px;
     background-color: #f0f0f0;
-    gap: 10px;
     position: fixed;
     bottom: 0;
     width: 100%;
-    font-size: 14px;
+    font-size: 20px;
   }
   
-  footer .footer-content {
+  .footer-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 20px;
     flex-wrap: wrap;
     flex-direction: row;
     width: 100%;
     text-align: center;
   }
   
+  
   .footer-separator {
     font-weight: bold;
     color: #999;
+    gap: 10px;
   }
 
   .linkedin-icon {
@@ -418,16 +427,18 @@ body {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
   
   .about-side-image {
     width: 220px;
-    height: auto;
+    height: 300px;
     max-height: 400px;
     object-fit: cover;
     border-radius: 16px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
   }
   
 
@@ -445,11 +456,12 @@ body {
   
     
     .left-img {
-      margin-top: -30px;
+      margin-top: -20px;
+      margin-bottom: 60px;
     }
     
     .right-img {
-      margin-top: 110px;
+      margin-top: 70px;
     }
 
   
@@ -569,7 +581,7 @@ body {
     letter-spacing: 5px;
     font-size: 18px;
     color: #333;
-    margin-top: 100px;
+    margin-top: 2rem;
     margin-bottom: 30px;
     text-align: center;
   }
@@ -639,7 +651,11 @@ body {
     font-size: 16px;
     transition: background 0.2s ease;
   }
-
+  .tracklist li.playing {
+    font-weight: bold;
+    color: #111;
+  }
+  
   .tracklist li:hover {
     background-color: #f0f0f0;
   }
