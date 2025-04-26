@@ -266,19 +266,38 @@ body {
     text-align: center;
     margin-bottom: 80px;
   }
-  
-
   footer {
     font-family: 'Karla', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     padding: 20px;
     background-color: #f0f0f0;
-    gap: 20px;
+    gap: 10px;
     position: fixed;
     bottom: 0;
     width: 100%;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    footer {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 10px;
+      font-size: 13px;
+      position: static;
+      margin-top: 20px;
+    }
+  
+    footer span {
+      text-align: center;
+      display: inline-block;
+    }
   }
   
   .linkedin-icon {
