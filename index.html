@@ -40,90 +40,97 @@
       </a>
     </div>
   </footer>
+  <script>
+    const mobileToggle = document.querySelector('.mobile-nav-toggle');
+    const navBar = document.querySelector('.nav-bar');
   
-<script>
-  const mobileToggle = document.querySelector('.mobile-nav-toggle');
-const navBar = document.querySelector('.nav-bar');
-
-mobileToggle.addEventListener('click', () => {
-  navBar.classList.toggle('active');
-});
-
-  async function loadContent(url) {
-    const content = document.getElementById('content');
-    content.classList.add('fade-out');
-    await new Promise(resolve => setTimeout(resolve, 400));
-
-    try {
-      const response = await fetch(url);
-      const html = await response.text();
-      const temp = document.createElement('div');
-      temp.innerHTML = html;
-
-      const newContent = temp.querySelector('#page-content');
-      if (newContent) {
-        content.innerHTML = newContent.innerHTML;
-        const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
-        window.scrollTo({ top: 0, behavior: scrollBehavior });
-
-
-        content.classList.remove('fade-out');
-        content.style.animation = 'none';
-        void content.offsetWidth;
-        content.style.animation = null;
-
-        document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
-
-        if (url.includes("scores.html")) {
-          const wavesurferScript = document.createElement("script");
-          wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
-          wavesurferScript.setAttribute("data-dynamic", "true");
-          wavesurferScript.onload = () => {
-            const customScript = document.createElement("script");
-            customScript.src = "scores.js";
-            customScript.setAttribute("data-dynamic", "true");
-            const query = new URL(url, window.location.href).search;
-            window.__SONG_ID__ = query;
-            document.body.appendChild(customScript);
-          };
-          document.body.appendChild(wavesurferScript);
-}
-      } else {
-        content.innerHTML = "<p>Page format is incorrect.</p>";
-      }
-    } catch (err) {
-      content.innerHTML = "<p>Failed to load page.</p>";
-      console.error(err);
-    }
-  }
-  let firstLoad = true;
-
-  window.addEventListener("DOMContentLoaded", () => {
-    loadContent("home.html", true);
-  });
-
-  document.addEventListener('click', e => {
-  const link = e.target.closest('a[data-link]');
-  if (!link) return;
-
-  e.preventDefault();
-
-  const fullUrl = new URL(link.href, window.location.href);
-  const pathWithQuery = fullUrl.pathname + fullUrl.search;
-
-  history.pushState(null, '', pathWithQuery);
-  loadContent(pathWithQuery); 
-});
-window.addEventListener('popstate', () => {
-  loadContent(location.pathname + location.search);
-});
-
-
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert("LinkedIn address has copied.");
+    mobileToggle.addEventListener('click', () => {
+      navBar.classList.toggle('active');
     });
-  }
-</script>
+  
+    async function loadContent(url) {
+      const content = document.getElementById('content');
+      content.classList.add('fade-out');
+      await new Promise(resolve => setTimeout(resolve, 400));
+  
+      try {
+        const response = await fetch(url);
+        const html = await response.text();
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+  
+        const newContent = temp.querySelector('#page-content');
+        if (newContent) {
+          content.innerHTML = newContent.innerHTML;
+          const scrollBehavior = window.innerWidth < 768 ? 'auto' : 'smooth';
+          window.scrollTo({ top: 0, behavior: scrollBehavior });
+  
+          content.classList.remove('fade-out');
+          content.style.animation = 'none';
+          void content.offsetWidth;
+          content.style.animation = null;
+  
+          document.querySelectorAll('script[data-dynamic]').forEach(s => s.remove());
+  
+          if (url.includes("scores.html")) {
+            const wavesurferScript = document.createElement("script");
+            wavesurferScript.src = "https://unpkg.com/wavesurfer.js";
+            wavesurferScript.setAttribute("data-dynamic", "true");
+            wavesurferScript.onload = () => {
+              const customScript = document.createElement("script");
+              customScript.src = "scores.js";
+              customScript.setAttribute("data-dynamic", "true");
+              const query = new URL(url, window.location.href).search;
+              window.__SONG_ID__ = query;
+              document.body.appendChild(customScript);
+            };
+            document.body.appendChild(wavesurferScript);
+          }
+        } else {
+          content.innerHTML = "<p>Page format is incorrect.</p>";
+        }
+      } catch (err) {
+        content.innerHTML = "<p>Failed to load page.</p>";
+        console.error(err);
+      }
+    }
+  
+    // Initial load
+    window.addEventListener("DOMContentLoaded", () => {
+      loadContent("home.html");
+    });
+  
+    // Handle nav link clicks
+    document.addEventListener('click', e => {
+      const link = e.target.closest('a[data-link]');
+      if (!link) return;
+  
+      e.preventDefault();
+  
+      const fullUrl = new URL(link.href, window.location.href);
+      const pathWithQuery = fullUrl.pathname + fullUrl.search;
+  
+      // Collapse mobile nav on click
+      if (window.innerWidth < 769 && navBar.classList.contains('active')) {
+        navBar.classList.remove('active');
+      }
+  
+      history.pushState(null, '', pathWithQuery);
+      loadContent(pathWithQuery);
+    });
+  
+    // Back/forward navigation
+    window.addEventListener('popstate', () => {
+      loadContent(location.pathname + location.search);
+    });
+  
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("LinkedIn address has copied.");
+      });
+    }
+  </script>
+  
+
 </body>
 </html>

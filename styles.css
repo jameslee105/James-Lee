@@ -5,6 +5,13 @@ body {
     background-color: #F4F3F2;
   }
   @media (max-width: 768px) {
+    @media (max-width: 768px) {
+      .title,
+      .section-title {
+        margin-top: 80px;
+      }
+    }
+    
     .nav-wrapper {
       flex-direction: row;
       justify-content: space-between;
@@ -12,7 +19,10 @@ body {
       padding: 1rem;
       position: relative;
     }
-  
+    .divider {
+      display: none !important;
+    }
+    
     .mobile-nav-toggle {
       display: block;
       font-size: 2rem;
@@ -48,19 +58,8 @@ body {
       padding: 10px 20px;
       font-size: 16px;
     }
-  
-    .profile-img {
-      margin-top: 40px;
-    }
-  }
-  
-  @media (min-width: 769px) {
-    .mobile-nav-toggle {
-      display: none;
-    }
-    .nav-bar {
-      display: flex !important;
-    }
+   
+    
   }
   
   .mobile-nav-toggle {
@@ -298,36 +297,7 @@ body {
     font-weight: bold;
     color: #999;
   }
-  
-  @media (max-width: 768px) {
-    .divider {
-      display: none;
-    }
-  
-    footer {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 10px;
-      font-size: 13px;
-      position: static;
-      margin-top: 20px;
-      text-align: center;
-    }
-  
-    footer .footer-content {
-      flex-direction: row;
-      justify-content: center;
-    }
-  
-    footer span {
-      display: inline;
-      width: auto;
-    }
-  }
-  
+
   .linkedin-icon {
     width: 20px;
     height: 20px;
@@ -435,17 +405,6 @@ body {
     justify-items: center;
   }
  
-  @media (max-width: 850px) {
-    .about-wrapper {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-  
-    .about-text {
-      margin: 0;
-    }
-  }
   .about-wrapper {
     display: flex;
     flex-direction: column;
@@ -486,11 +445,11 @@ body {
   
     
     .left-img {
-      margin-top: -65px;
+      margin-top: -30px;
     }
     
     .right-img {
-      margin-top: 100px;
+      margin-top: 110px;
     }
 
   
@@ -610,8 +569,11 @@ body {
     letter-spacing: 5px;
     font-size: 18px;
     color: #333;
+    margin-top: 100px;
     margin-bottom: 30px;
+    text-align: center;
   }
+  
 
   .play-button {
     width: 48px;
