@@ -277,7 +277,7 @@ body {
   }
   @media (max-width: 768px) {
     footer {
-      font-size: 12px;
+      font-size: 14px;
       padding: 12px;
     }
     footer .footer-content {
@@ -422,7 +422,7 @@ body {
   }
   
   .album-gallery {
-    padding: 2rem 0;
+    padding: 1rem 0;
     max-width: 800px;          
     margin: 0 auto;             
   }
