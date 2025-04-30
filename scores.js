@@ -32,16 +32,16 @@
         { title: "Life of Tree", src: "music/Life of Tree.mp3", duration: "3:22" },
         { title: "Mori", src: "music/Mori.mp3", duration: "3:06" },
         { title: "Skyland", src: "music/Skyland.mp3", duration: "3:24" },
+        { title: "Silver Kingdom", src: "music/Silver Kingdom.mp3", duration: "3:35" },
+        { title: "Monorail", src: "music/Monorail.mp3", duration: "3:35" },
+        { title: "Land of Memory", src: "music/Land of Memory.mp3", duration: "3:35" },
+        { title: "Reflection", src: "music/Reflection.mp3", duration: "3:35" },
         { title: "Coming Back to the Glory", src: "music/Coming back to the glory.mp3", duration: "4:10" },
         { title: "Falling into Water", src: "music/Falling into Water.mp3", duration: "5:02" },
         { title: "Impossible Mission", src: "music/Impossible Mission.mp3", duration: "2:26" },
         { title: "Opening 1", src: "music/Opening 1.mp3", duration: "1:32" },
         { title: "The Final", src: "music/The final.mp3", duration: "3:20" },
-        { title: "The Survivor", src: "music/The Survivor.mp3", duration: "2:56" },
-        { title: "Reflection", src: "music/Reflection.mp3", duration: "3:35" },
-        { title: "Silver City", src: "music/Silver City.mp3", duration: "3:35" },
-        { title: "Monorail", src: "music/Monorail.mp3", duration: "3:35" },
-        { title: "Land of Memory", src: "music/Land of Memory.mp3", duration: "3:35" }
+        { title: "The Survivor", src: "music/The Survivor.mp3", duration: "2:56" }
       ];
   
       const trackTitle = document.getElementById("track-title");
